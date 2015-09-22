@@ -23,6 +23,6 @@ sums <- c(sum99, sum02, sum05, sum08)
 
 ## Plot it!
 png(file="plot1.PNG", bg="transparent")
-barplot(sums, names.arg=years)
+barplot(sums, names.arg=years, ylab="Emissions in Tons", xlab="Years", main="PM2.5 Emissions in Tons per Year")
 text(plotIt, sums, labels=round(sums, digits=0), pos=1, offset=.3)
 dev.off()
