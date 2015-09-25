@@ -14,6 +14,7 @@ NEIBalmer <- aggregate(Emissions ~year + type, data=NEIBalmer, sum)
 
 ## Plot it!
 ##ggplot: http://www.cookbook-r.com/Graphs/Bar_and_line_graphs_(ggplot2)/
+png(file="plot3.PNG", bg="transparent")
 BalmerPlot <- ggplot(data=NEIBalmer, aes(x=year, y=Emissions, group=type, shape=type, color=type)) +
   geom_point(size=3, name="") +
   geom_line(name="") +
@@ -21,3 +22,4 @@ BalmerPlot <- ggplot(data=NEIBalmer, aes(x=year, y=Emissions, group=type, shape=
   ggtitle("Emissions Trends for Baltimore, MD") +
   theme_bw()
 BalmerPlot + scale_color_discrete(name = "Type of Source") + scale_shape_discrete(name="Type of Source")
+dev.off()
