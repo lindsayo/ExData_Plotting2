@@ -30,16 +30,17 @@ mvNEIBalmer <- subset(mvNEI, fips == '24510')
 mvNEILA <- subset(mvNEI, fips == '06037')
 
 ## Aggregate the Emissions by year and type with a sum
-mvNEIMDLAAgg <- aggregate(Emissions ~year + type, data=mvNEIBalmer, sum)
+mvNEIBalmerAgg <- aggregate(Emissions ~year + type, data=mvNEIBalmer, sum)
+mvNEILAAgg <- aggregate(Emissions ~year + type, data=mvNEILA, sum)
 
 ## Plot it!
 ##ggplot: http://www.cookbook-r.com/Graphs/Bar_and_line_graphs_(ggplot2)/
-png(file="plot6.PNG", bg="transparent")
-mvPlot <- ggplot(data=mvNEIMDLAAgg, aes(x=year, y=Emissions, group=type, shape=type, color=type)) +
-  geom_point(size=3, name="") +
-  geom_line(name="") +
+mvPlot2 <- ggplot() +
+  geom_line(aes(x=year,y=Emissions,color="MD"), data = mvNEIBalmerAgg) + 
+  geom_line(aes(x=year,y=Emissions,color="LA"), data = mvNEILAAgg) +
   xlab("Years") + ylab("MV Emissions in PPM") +
-  ggtitle("Baltimore City, MD Motor Vehicle Emissions Trends") +
+  ggtitle("Baltimore, MD & Los Angeles, CA Motor Vehicle Emissions Trends") +
   theme_bw()
-mvPlot + scale_color_discrete(name = "Type of Source") + scale_shape_discrete(name="Type of Source")
+png(file="plot6.PNG", bg="transparent")
+mvPlot2 + scale_colour_discrete("City")
 dev.off()
